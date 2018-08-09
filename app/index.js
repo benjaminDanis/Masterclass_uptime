@@ -5,6 +5,16 @@ const config = require('./config')
 
 const server = http.createServer((req, res) => {
 
+});
+
+// Start the server, listen on port 3000
+server.listen(config.port, () => {
+    console.log('The server is listening on port ' + config.port + ' in ' + config.envName + ' mode.');
+})
+
+// All the server logic for both the http and https
+const unifiedServer = (req, res) => {
+
     // Get the URL and parse it
     const parsedUrl = url.parse(req.url, true);
 
@@ -69,12 +79,7 @@ const server = http.createServer((req, res) => {
 
         
     });
-});
-
-// Start the server, listen on port 3000
-server.listen(config.port, () => {
-    console.log('The server is listening on port ' + config.port + ' in ' + config.envName + ' mode.');
-})
+}
 
 // Define the handlers
 const handlers = {}
@@ -95,3 +100,22 @@ handlers.notFound = (data, cb) => {
 const router = {
     'sample': handlers.sample
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

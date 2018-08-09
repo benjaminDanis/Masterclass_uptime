@@ -31,6 +31,8 @@ const server = http.createServer((req, res) => {
 
         // Choose the handler the request should go to
         // If one is not found, use the not found handler
+        // ** Determining which router fn will be used based on the path **
+        // ** chosenHandler is called below and passed data and the callback, which takes the status code and the payload **
         const chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
 
         // Construct the data object to send to the handler
@@ -56,6 +58,7 @@ const server = http.createServer((req, res) => {
             const payloadString = JSON.stringify(payload);
 
             // Return the response
+            res.setHeader('Content-Type', 'application/json');
             res.writeHead(statusCode);
             res.end(payloadString);
 
@@ -88,7 +91,6 @@ handlers.notFound = (data, cb) => {
 
 
 // Define a request router
-
 const router = {
     'sample': handlers.sample
 };
